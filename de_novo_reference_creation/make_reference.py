@@ -114,11 +114,11 @@ def merge_reads(args):
         else:
             cat = 'cat '
         if strand == 'watson':
-            grep_watson = "|grep 'Watson\|watson' -A 3 |sed '/^--$/d'"
+            grep_watson = "|sed '/^--$/d'"
             cmd1 = [ cat + args.forward + head + grep_watson + '|pigz -p %s -c >'%(args.threads)+fwd_out.name]
             cmd2 = [ cat  + args.reverse + head + grep_watson + '|pigz -p %s -c >'%(args.threads)+rev_out.name]
         else:
-            grep_crick = "|grep 'Crick\|crick' -A 3 |sed '/^--$/d'"
+            grep_crick = "|sed '/^--$/d'"
             cmd1 = [cat + args.forward + head + grep_crick + '|pigz -p %s -c  >'%(args.threads)+fwd_out.name]
             cmd2 = [cat + args.reverse + head + grep_crick + '|pigz -p %s -c  >'%(args.threads)+rev_out.name]
         log = "Write input files to tmpdir using gzcat"
